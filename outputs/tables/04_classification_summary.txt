@@ -1,0 +1,144 @@
+
+=== Population ===
+inventory articles              1751
+clustered (demand 2019-2021)    1498
+rule-based class 'no demand'     253
+
+=== Candidate features – describe ===
+                        count  mean   std   min   25%   50%   75%    max
+log_consumption_value  1498.0  6.36  2.85  0.00  4.58  6.83  8.39  13.53
+log_adi                1498.0  0.74  0.83  0.00  0.09  0.45  1.10   3.58
+log_cv2                1498.0  0.58  0.36  0.00  0.34  0.53  0.77   2.51
+cv                     1498.0  1.78  1.18  0.19  0.96  1.46  2.17   6.00
+log_price              1498.0  1.76  1.39  0.00  0.43  1.73  2.72   6.01
+usage_share            1498.0  0.60  0.45  0.00  0.00  0.89  1.00   1.00
+log_days_since_demand  1498.0  3.12  1.81  0.00  1.39  3.61  4.22   6.97
+
+=== Highly correlated pairs ===
+         a   b     r
+0  log_adi  cv  0.93
+
+=== Dropped by correlation filter ===
+['cv']
+
+=== Forward selection path ===
+   step                                  added  mean_silhouette   gain
+0     0  log_consumption_value+log_adi+log_cv2            0.306    NaN
+1     1                            usage_share            0.327  0.021
+2     2       log_days_since_demand (rejected)            0.283 -0.044
+
+=== Selected features ===
+['log_consumption_value', 'log_adi', 'log_cv2', 'usage_share']
+
+=== Evaluation metrics ===
+algorithm  k  silhouette  davies_bouldin  calinski_harabasz  min_cluster_%
+   kmeans  2       0.337           1.281            600.672         22.096
+      gmm  2       0.305           1.478            489.435         36.916
+     ward  2       0.287           1.528            450.475         37.116
+   kmeans  3       0.346           1.119            713.226         18.158
+      gmm  3       0.083           3.000            202.552         26.636
+     ward  3       0.315           1.220            569.943         13.551
+   kmeans  4       0.339           1.107            670.979         14.753
+      gmm  4       0.055           2.506            197.296         16.489
+     ward  4       0.302           1.316            499.393         10.414
+   kmeans  5       0.316           1.149            641.543         10.013
+      gmm  5       0.031           2.152            192.263         12.817
+     ward  5       0.284           1.183            475.387          9.746
+   kmeans  6       0.304           1.164            603.414          9.880
+      gmm  6       0.042           2.511            172.562          5.674
+     ward  6       0.236           1.305            482.110          9.746
+   kmeans  7       0.291           1.157            575.909          5.140
+      gmm  7      -0.006           3.647            147.419          5.808
+     ward  7       0.242           1.230            480.736          4.473
+   kmeans  8       0.274           1.152            565.648          4.740
+      gmm  8       0.018           4.555            147.665          6.542
+     ward  8       0.234           1.254            462.419          4.473
+   kmeans  9       0.291           1.111            559.196          2.870
+      gmm  9      -0.025           3.051            185.822          3.204
+     ward  9       0.236           1.168            455.693          1.202
+   kmeans 10       0.295           1.075            548.978          3.271
+      gmm 10      -0.070           3.269            137.290          1.268
+     ward 10       0.241           1.153            457.814          1.202
+
+=== Chosen k (k-means) ===
+3
+
+=== All algorithms at k = 3 ===
+algorithm  k  silhouette  davies_bouldin  calinski_harabasz  min_cluster_%
+   kmeans  3       0.346           1.119            713.226         18.158
+      gmm  3       0.083           3.000            202.552         26.636
+     ward  3       0.315           1.220            569.943         13.551
+
+=== Bootstrap stability (ARI, 30 runs of 80% samples) ===
+mean 0.978 | min 0.947
+
+=== Agreement with classic schemes (ARI; 0 = unrelated, 1 = identical) ===
+ABC                                 0.064
+XYZ                                -0.036
+ABC-XYZ                             0.015
+demand pattern (Syntetos-Boylan)    0.068
+product type                        0.447
+
+=== Cluster profiles ===
+cluster                         C1          C2         C3
+articles                    743.00      474.00     281.00
+lockup                  2649593.30  1928411.68  234925.84
+consumption_value       6406108.90  6351479.93   21415.88
+med_consumption_value      1057.82     3171.24      10.16
+med_lockup                  732.80      733.27     195.91
+med_coverage_days           232.88       93.64    2703.33
+med_months_with_demand       29.00       23.00       4.00
+med_adi                       1.20        1.50       7.20
+med_cv2                       0.70        0.82       0.33
+med_cv                        1.19        1.47       3.12
+med_lead_time                30.00       15.00      30.00
+med_rop_ratio                 3.25        2.30      38.20
+med_moq_months                3.87        1.73      54.03
+med_usage_share               1.00        0.04       1.00
+med_days_since_demand        29.00       35.00     156.00
+med_price                     2.88        6.76       2.44
+lockup_share_%               53.44       38.89       4.74
+coverage_days_total         148.90      109.30    3949.09
+
+=== Cluster x product_type (% of articles in cluster) ===
+product_type  finished  retail  semi-finished
+cluster                                      
+C1                10.0     0.0           89.0
+C2                44.0    55.0            1.0
+C3                 9.0    28.0           64.0
+
+=== Cluster x abc (% of articles in cluster) ===
+abc         A     B     C     N
+cluster                        
+C1       10.0  19.0  70.0   0.0
+C2       20.0  32.0  48.0   0.0
+C3        0.0   0.0  74.0  26.0
+
+=== Cluster x xyz (% of articles in cluster) ===
+xyz        X     Y     Z
+cluster                 
+C1       9.0  30.0  62.0
+C2       1.0  23.0  76.0
+C3       0.0   1.0  99.0
+
+=== Cluster x pattern (% of articles in cluster) ===
+pattern  erratic  intermittent  lumpy  smooth
+cluster                                      
+C1          36.0          10.0   34.0    20.0
+C2          28.0          10.0   51.0    10.0
+C3           0.0          59.0   41.0     0.0
+
+=== PCA loadings ===
+                        PC1   PC2
+log_consumption_value  0.67  0.06
+log_adi               -0.67 -0.30
+log_cv2                0.28 -0.40
+usage_share           -0.16  0.86
+
+=== Rule-based class ND ===
+articles             253.0
+lockup            145326.0
+lockup_share_%         2.9
+
+=== Saved ===
+article_clusters.parquet | {'C1': 743, 'C2': 474, 'C3': 281, 'ND (no demand)': 253}

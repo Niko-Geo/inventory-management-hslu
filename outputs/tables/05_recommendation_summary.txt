@@ -1,0 +1,114 @@
+
+=== Loaded ===
+1,751 articles | clusters: {'C1': 743, 'C2': 474, 'C3': 281, 'ND (no demand)': 253}
+
+=== Strategy by class ===
+                                  articles     lockup  lockup_share_%
+cluster        strategy                                              
+C1             stock – optimised       743  2649593.0            53.0
+C2             make-to-order           210   227093.0             5.0
+               stock – optimised       264  1701318.0            34.0
+C3             order on demand         281   234926.0             5.0
+ND (no demand) observe (new)            71    56334.0             1.0
+               phase out               182    88992.0             2.0
+
+=== Stocked articles – current vs. new reorder points ===
+              current ROP (sum of value)  new ROP (sum of value)  articles ROP lower  articles ROP higher
+case formula                   1976530.0               2420080.0                 570                  437
+textbook                       1976530.0               3649433.0                 526                  481
+
+=== Backtest coverage ===
+925 of 1007 stocked articles simulated (skipped: no demand in 2019-2020 or none in 2020-2021)
+
+=== Backtest 2021 – all stocked articles ===
+          articles  fill rate (value-weighted)  fill rate (median article)  stockout days / demand days  avg stock value 2021  stock value vs current %
+policy                                                                                                                                                 
+current      925.0                       0.740                       0.994                        0.120           1779803.731                     0.000
+case         925.0                       0.879                       0.973                        0.065           1990100.852                    11.816
+textbook     925.0                       0.942                       1.000                        0.044           3069187.736                    72.445
+
+=== Backtest by ABC class (value-weighted fill rate, stock value) ===
+       fill_rate_w                   stock_value                          
+policy        case current textbook         case      current     textbook
+abc                                                                       
+A            0.883   0.727    0.953  1442498.070  1187129.094  2407469.369
+B            0.857   0.801    0.887   313138.786   325650.168   411264.804
+C            0.871   0.829    0.878   234463.996   267024.469   250453.563
+
+=== Efficiency frontier (textbook formula, backtest 2021) ===
+                 fill_rate_w  stock_value
+setting                                  
+uniform 85%            0.890  2212126.568
+A90 / B85 / C80        0.900  2377335.624
+uniform 90%            0.903  2445004.522
+A95 / B90 / C85        0.922  2690760.379
+uniform 95%            0.926  2788362.705
+A98 / B95 / C90        0.942  3069187.736
+A99 / B95 / C90        0.950  3290116.633
+
+=== Reference points ===
+         fill_rate_w  stock_value
+current        0.740  1779803.731
+case           0.879  1990100.852
+
+=== Chosen service-level setting (target fill rate 90%) ===
+A90 / B85 / C80  {'A': 1.28, 'B': 1.04, 'C': 0.84}
+
+=== Ordering behaviour vs. reorder-point policy (simulated articles) ===
+actual capital lockup (last 12 months)             4104209
+simulated: current ROP + disciplined order size    1779804
+share of capital beyond the ROP policy                 57%
+
+=== Final method ===
+textbook with A90 / B85 / C80
+
+=== Capital lockup effect (textbook) ===
+                   articles  current_lockup  new_lockup     change  change_%
+strategy                                                                    
+make-to-order         210.0        227093.0         0.0  -227093.0    -100.0
+observe (new)          71.0         56334.0     56334.0        0.0       0.0
+order on demand       281.0        234926.0         0.0  -234926.0    -100.0
+phase out             182.0         88992.0         0.0   -88992.0    -100.0
+stock – optimised    1007.0       4350912.0   2176240.0 -2174671.0     -50.0
+TOTAL                1751.0       4958257.0   2232575.0 -2725683.0     -55.0
+
+=== Order-size lever for stocked articles ===
+stocked: current lockup                              4350912.0
+stocked: new SS/ROP, current order sizes             2176240.0
+stocked: new SS/ROP + order size = 1 month demand    1784903.0
+
+=== Ten selected articles ===
+article_nr                                       1425485                             1395542                                             1423836                 1424728                  1333080                                                   1412878                                     1420466                           1876926                        1334543                1372564
+reason                       C1 – highest capital lockup  C2 retail – highest capital lockup  MOQ-driven stock (one order > 12 months of demand)  steady (smooth) demand  lumpy / searched demand  heavily oversized reorder point (> 10x lead-time demand)  no lead time maintained (fallback formula)  finished product → make-to-order  C3 sporadic → order on demand  no demand → phase out
+cluster                                               C1                                  C2                                                  C1                      C1                       C2                                                        C1                                          C1                                C2                             C3         ND (no demand)
+strategy                               stock – optimised                   stock – optimised                                   stock – optimised       stock – optimised        stock – optimised                                         stock – optimised                           stock – optimised                     make-to-order                order on demand              phase out
+product_type                               semi-finished                              retail                                       semi-finished           semi-finished                   retail                                                  finished                                    finished                          finished                         retail                 retail
+abc                                                    A                                   A                                                   C                       A                        A                                                         B                                           C                                 A                              N                      N
+xyz                                                    Y                                   Z                                                   Z                       Y                        Z                                                         X                                           Z                                 Z                              Z                      -
+pattern                                           smooth                             erratic                                        intermittent                  smooth                    lumpy                                                    smooth                                intermittent                             lumpy                   intermittent              no demand
+last_direct_cost                                    2.37                                6.29                                                15.6                    4.68                      0.9                                                      3.91                                       125.9                             35.77                           4.27                   0.44
+lead_time                                             20                                  60                                                  60                      15                       60                                                        15                                           0                                15                             60                      0
+moq                                                 1666                                   0                                                 568                       0                        0                                                      1332                                          44                                55                           8885                      0
+mean_monthly                                    19165.37                             9132.61                                               19.65                 7372.48                   9545.5                                                    320.17                                        1.42                              91.7                         320.29                    0.0
+std_monthly                                     10025.78                             9365.28                                               39.53                 4646.15                  12931.5                                                    118.92                                        2.66                            336.14                        1198.43                    0.0
+current_rop                                         5553                               13328                                                 166                    1332                    59980                                                      2665                                          11                               111                          13328                   3998
+ss_case                                         10025.78                             9365.28                                               39.53                 4646.15                  12931.5                                                    118.92                                        6.66                            336.14                        1198.43                    0.0
+rop_case                                        22802.69                            27630.51                                               78.83                 8332.39                  32022.5                                                    279.01                                        6.66                            381.99                        1839.01                    0.0
+ss_textbook                                      10478.1                            16952.97                                               46.96                 4205.22                 23408.51                                                     87.46                                        2.24                            304.24                        1423.66                    0.0
+rop_textbook                                    23255.01                            35218.19                                               86.26                 7891.45                 42499.52                                                    247.54                                        3.66                            350.09                        2064.24                    0.0
+new_ss                                           10478.1                            16952.97                                               46.96                 4205.22                 23408.51                                                     87.46                                        2.24                               0.0                            0.0                    0.0
+new_rop                                         23255.01                            35218.19                                               86.26                 7891.45                 42499.52                                                    247.54                                        3.66                               0.0                            0.0                    0.0
+q                                               19165.37                             9132.61                                               568.0                 7372.48                   9545.5                                                    1332.0                                        44.0                              91.7                         8885.0                    0.0
+stock_ref                                       30021.34                             3525.52                                              503.17                48140.99                 86638.46                                                   2897.95                                        8.89                            133.29                        8984.85               16895.61
+lockup_12m                                     241282.18                           165977.91                                             8573.51               192297.57                 86179.44                                                  13123.28                                     4105.81                          10125.41                       38335.06                7496.72
+new_lockup                                       47490.8                           135276.95                                             5162.05                36893.87                 25275.36                                                   2945.64                                     3051.58                               0.0                            0.0                    0.0
+lockup_change_%                                    -80.0                               -18.0                                               -40.0                   -81.0                    -71.0                                                     -78.0                                       -26.0                            -100.0                         -100.0                 -100.0
+sim_fill_rate_case                                  0.93                                0.81                                                 1.0                     0.9                     0.86                                                       1.0                                         1.0                               NaN                            NaN                    NaN
+sim_fill_rate_current                               0.64                                0.52                                                 1.0                    0.65                      1.0                                                       1.0                                         1.0                               NaN                            NaN                    NaN
+sim_fill_rate_final                                 0.93                                0.89                                                 1.0                     0.9                     0.91                                                       1.0                                         1.0                               NaN                            NaN                    NaN
+sim_avg_stock_value_case                        32354.78                            108311.8                                             6938.68                35684.55                 11842.68                                                   3288.87                                     3878.96                               NaN                            NaN                    NaN
+sim_avg_stock_value_current                     10810.41                            57047.95                                             8223.12                13028.66                 35545.23                                                  12567.12                                     4984.21                               NaN                            NaN                    NaN
+sim_avg_stock_value_final                       32836.21                           147710.73                                             7064.78                34142.37                 23404.51                                                   3157.25                                     4012.94                               NaN                            NaN                    NaN
+
+=== Exported ===
+05_recommendations.xlsx, 05_recommendations_all_articles.csv, 05_ten_articles.csv

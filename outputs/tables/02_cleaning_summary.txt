@@ -1,0 +1,156 @@
+
+=== Loaded ===
+2,694,849 rows | 58,764 articles | 1,751 inventory articles
+
+=== Transactions per month from 2021-07 ===
+date
+2021-07    25413
+2021-08    24430
+2021-09    26703
+2021-10    23482
+2021-11    22816
+2021-12    18679
+2022-01     7695
+2022-03      587
+2022-04      581
+2022-05      816
+2022-06      688
+2022-07      483
+2022-10      673
+2022-11      453
+2022-12      552
+Freq: M
+
+=== Transactions after reference date 2022-01-21 ===
+rows                           4833
+articles                       1264
+of which inventory articles     620
+
+=== …by date (top 15) ===
+date
+2022-05-01    816
+2022-06-01    688
+2022-10-01    673
+2022-03-01    587
+2022-04-01    581
+2022-12-01    552
+2022-07-01    483
+2022-11-01    453
+
+=== …by entry type ===
+entry_type
+Usage for production       2700
+Sale                        892
+Internal transaction        672
+Ingoing from production     320
+Procurement                 139
+Outgoing adjustment          85
+Ingoing adjustment           25
+
+=== Attribute variation per article ===
+                  all articles: % with >1 value  inventory articles: % with >1 value
+safety_stock                               0.00                                 0.00
+lead_time                                  0.00                                 0.00
+moq                                        0.00                                 0.00
+last_direct_cost                           0.00                                 0.00
+vendor_nr                                  0.00                                 0.00
+base_unit                                  0.00                                 0.00
+eshop                                      0.00                                 0.00
+submarket                                  0.00                                 0.00
+item_main_group                            0.00                                 0.00
+item_sub_group                             0.00                                 0.00
+item_category                              0.00                                 0.00
+product_category                          11.01                                35.35
+
+=== No-demand inventory articles: 214 – their transactions by entry type ===
+entry_type
+Procurement                7985
+Outgoing adjustment        1346
+Internal transaction        730
+Ingoing adjustment          117
+Ingoing from production       1
+
+=== No-demand articles – first transaction year ===
+first
+2007    36
+2008     8
+2009     8
+2010     5
+2011     4
+2012     4
+2013    14
+2014     2
+2015     3
+2016     9
+2017     7
+2018    11
+2019    13
+2020    15
+2021    63
+2022    12
+
+=== No-demand articles – describe ===
+         n_tx  inventory_level  stock_value  safety_stock
+count  214.00           214.00       214.00        214.00
+mean    47.57           512.73       500.37        284.15
+std     89.10          3167.73      1303.17       1756.60
+min      1.00            -3.33         0.00          1.00
+25%      3.00             0.00         0.00          2.25
+50%     10.50             9.44       110.44         22.00
+75%     51.75           197.71       439.18        111.00
+max    561.00         38818.47     13673.54      22214.00
+
+=== inventory_level consistency ===
+H1 'before': next level = level + qty  (all rows)        85.1%
+H1 'before': (next tx on later day)                      49.0%
+H2 'after':  next level = level + next qty (all rows)    22.0%
+
+=== Kept transactions ===
+1,610,914 rows of inventory articles up to 2022-01-21 (dropped 3,225 later rows)
+
+=== Outliers in demand window ===
+outlier transactions                                       134
+articles affected                                          134
+demand volume removed by capping (% of window demand)    0.16%
+
+=== Largest outliers (top 10) ===
+        article_nr       date  entry_type        demand           cap
+2527637    1333081 2021-10-27           1  17771.992268  11107.495168
+2521269    1333887 2021-12-10           1  15994.793041  13328.994201
+911458     1418959 2021-09-30           1   8230.653919   3998.698260
+634782     1420449 2021-03-17           5   6753.357062   1688.339265
+758969     1419630 2021-11-15           1   5553.747584   2221.499034
+1112592    1412486 2020-01-17           5   5553.747584   2665.798840
+2526094    1333090 2021-03-19           1   4276.385640   3887.623309
+746781     1419796 2019-03-21           5   3498.860978   1732.769246
+648425     1420327 2021-08-10           5   3186.740364   1577.264314
+1075544    1412556 2021-04-10           1   3098.991152   1332.899420
+
+=== Data-quality flags (number of inventory articles) ===
+flag_no_demand            215
+flag_lead_time_missing     37
+flag_price_zero             4
+flag_moq_missing          462
+flag_negative_stock       712
+flag_new_in_window        378
+
+=== Monthly demand table ===
+1,751 articles × 36 months = 63,036 rows
+
+=== Months with demand per article (distribution) ===
+months_with_demand
+0                   253
+1-6                 273
+7-12                214
+13-24               355
+25-35               421
+36 (every month)    235
+
+=== Saved ===
+transactions_clean.parquet | 28.7 MB
+
+=== Saved ===
+articles.parquet | 0.1 MB
+
+=== Saved ===
+demand_monthly.parquet | 0.2 MB
